@@ -6,9 +6,6 @@ const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
 const DashboardPlugin = require('webpack-dashboard/plugin')
 
-const loader = require('./src/js/loader')
-
-
 module.exports = {
   mode: 'development',
   entry: {
@@ -24,7 +21,7 @@ module.exports = {
       use: [{
         loader: 'babel-loader',
         options: {
-          presets: ['es2015'],
+          presets: ['@babel/preset-env'],
         },
       }],
     },
@@ -113,7 +110,6 @@ module.exports = {
       template: './src/index.html',
       filename: 'index.html', // relative to root of the application
       showErrors: true,
-      loader,
       env: 'dev',
     }),
     new CleanWebpackPlugin(['dist']),

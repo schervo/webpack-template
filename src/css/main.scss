@@ -1,17 +1,27 @@
-@import url('https://fonts.googleapis.com/css?family=Open+Sans:100,300,400,700');
-// @import 'materialize.scss';
+@import 'custom';
+
+// Required
+@import '~bootstrap/scss/functions';
+@import '~bootstrap/scss/variables';
+@import '~bootstrap/scss/mixins';
+
+@import '~bootstrap/scss/buttons';
+@import '~bootstrap/scss/grid';
+@import '~bootstrap/scss/modal';
+
 
 * {
   box-sizing: border-box;
 }
 
-html, body {
-  margin: 0;
+html,
+body {
   font-family: 'Open Sans', sans-serif;
+  margin: 0;
   overflow-x: hidden;
   width: 100vw;
 }
 
-ul{
+ul {
   list-style: none;
 }

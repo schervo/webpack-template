@@ -1,13 +1,13 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const path = require('path')
 const webpack = require('webpack')
-const glob = require('glob-all')
+// const glob = require('glob-all')
 
 // Plugins
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-const PurifyCSSPlugin = require('purifycss-webpack')
+// const PurifyCSSPlugin = require('purifycss-webpack')
 const HtmlCriticalWebpackPlugin = require('html-critical-webpack-plugin')
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
@@ -15,28 +15,29 @@ const ImageminPlugin = require('imagemin-webpack-plugin').default
 const OfflinePlugin = require('offline-plugin')
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
 
-const PUBLIC_PATH = 'http://www.web.com' // webpack needs the trailing slash for output.publicPath
-
-const loader = require('./src/js/loader')
-
+const PUBLIC_PATH = '' // webpack needs the trailing slash for output.publicPath
 
 const getFilesToCopy = () => {
-  const files = [{
-    from: './src/images/logo.png',
-    to: './images',
-  }]
+  const files = [
+    // {
+    //   from: './src/images/logo.png',
+    //   to: './images',
+    // },
+  ]
 
-  if (process.env.NODE_ENV !== 'firebase') {
-    files.push({
-      from: './src/PHPMailer-master',
-      to: './PHPMailer-master',
-      toType: 'dir',
-    })
-    files.push({
-      from: './src/process.php',
-      to: './',
-    })
-  }
+  // if (process.env.NODE_ENV !== 'firebase') {
+  //   files.push(
+  //     {
+  //       from: './src/PHPMailer-master',
+  //       to: './PHPMailer-master',
+  //       toType: 'dir',
+  //     },
+  //     {
+  //       from: './src/process.php',
+  //       to: './',
+  //     },
+  //   )
+  // }
 
   return files
 }
@@ -60,7 +61,7 @@ module.exports = {
       use: [{
         loader: 'babel-loader',
         options: {
-          presets: ['es2015'],
+          presets: ['@babel/preset-env'],
         },
       }],
     },
@@ -153,7 +154,6 @@ module.exports = {
       myPageHeader: 'Hello World',
       template: './src/index.html',
       filename: 'index.html', // relative to root of the application
-      loader,
       env: 'prod',
       minify: {
         removeComments: true,
@@ -171,21 +171,12 @@ module.exports = {
       filename: '[name].css',
       // chunkFilename: '[id].css',
     }),
-    new PurifyCSSPlugin({
-      paths: glob.sync([path.join(__dirname, 'src/*.html'),
-        path.join(__dirname, 'src/js/app.js'),
-        path.join(__dirname, 'src/js/materialize/datepicker.js'),
-        path.join(__dirname, 'src/js/materialize/dropDown.js'),
-        path.join(__dirname, 'src/js/materialize/forms.js'),
-        path.join(__dirname, 'src/js/materialize/modal.js'),
-        path.join(__dirname, 'src/js/materialize/scrollspy.js'),
-        path.join(__dirname, 'src/js/materialize/select.js'),
-        path.join(__dirname, 'src/js/materialize/sidenav.js'),
-        path.join(__dirname, 'src/js/materialize/timePicker.js'),
-        path.join(__dirname, 'src/js/materialize/carousel.js'),
-      ]),
-      minimize: true,
-    }),
+    // new PurifyCSSPlugin({
+    //   paths: glob.sync([path.join(__dirname, 'src/*.html'),
+    //     path.join(__dirname, 'src/js/app.js'),
+    //   ]),
+    //   minimize: true,
+    // }),
     new webpack.optimize.ModuleConcatenationPlugin(),
     new HtmlCriticalWebpackPlugin({
       base: path.resolve(__dirname, 'dist'),
