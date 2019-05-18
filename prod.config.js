@@ -1,13 +1,16 @@
 /* eslint-disable import/no-extraneous-dependencies */
 const path = require('path')
 const webpack = require('webpack')
-// const glob = require('glob-all')
+const glob = require('glob-all')
+
+const fs = require('fs')
+
 
 // Plugins
 const MiniCssExtractPlugin = require('mini-css-extract-plugin')
 const HtmlWebpackPlugin = require('html-webpack-plugin')
 const CleanWebpackPlugin = require('clean-webpack-plugin')
-// const PurifyCSSPlugin = require('purifycss-webpack')
+const PurifyCSSPlugin = require('purifycss-webpack')
 const HtmlCriticalWebpackPlugin = require('html-critical-webpack-plugin')
 const ScriptExtHtmlWebpackPlugin = require('script-ext-html-webpack-plugin')
 const CopyWebpackPlugin = require('copy-webpack-plugin')
@@ -42,6 +45,21 @@ const getFilesToCopy = () => {
   return files
 }
 
+
+const getComponents = () => {
+  const content = fs.readFileSync('./src/js/app.js', 'utf8')
+
+  const arrayOfLines = content.match(/[^\r\n]+/g)
+
+  const components = arrayOfLines.slice(arrayOfLines.indexOf('// <components>') + 1, arrayOfLines.indexOf('// </components>'))
+
+  const paths = components.reduce((accum, component) => {
+    accum.push(path.join(__dirname, `node_modules/${component.match(/'(.*)'/).pop()}.js`))
+    return accum
+  }, [])
+
+  return paths
+}
 module.exports = {
   mode: 'production',
   entry: {
@@ -171,12 +189,14 @@ module.exports = {
       filename: '[name].css',
       // chunkFilename: '[id].css',
     }),
-    // new PurifyCSSPlugin({
-    //   paths: glob.sync([path.join(__dirname, 'src/*.html'),
-    //     path.join(__dirname, 'src/js/app.js'),
-    //   ]),
-    //   minimize: true,
-    // }),
+    new PurifyCSSPlugin({
+      paths: glob.sync([
+        path.join(__dirname, 'src/*.html'),
+        path.join(__dirname, 'src/js/app.js'),
+        ...getComponents(),
+      ]),
+      minimize: true,
+    }),
     new webpack.optimize.ModuleConcatenationPlugin(),
     new HtmlCriticalWebpackPlugin({
       base: path.resolve(__dirname, 'dist'),
