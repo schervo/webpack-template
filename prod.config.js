@@ -17,6 +17,8 @@ const CopyWebpackPlugin = require('copy-webpack-plugin')
 const ImageminPlugin = require('imagemin-webpack-plugin').default
 const OfflinePlugin = require('offline-plugin')
 const SWPrecacheWebpackPlugin = require('sw-precache-webpack-plugin')
+// const { BundleAnalyzerPlugin } = require('webpack-bundle-analyzer')
+
 
 const PUBLIC_PATH = '' // webpack needs the trailing slash for output.publicPath
 
@@ -107,33 +109,43 @@ module.exports = {
     },
     {
       test: /\.(gif|png|jpe?g)$/i,
-      use: [{
-        loader: 'file-loader',
-        options: {
-          name: 'images/[name].[ext]',
+      use: [
+        // {
+        //   loader: 'file-loader',
+        //   options: {
+        //     name: 'images/[name].[ext]',
+        //   },
+        // // include: path.join(__dirname, 'src')
+        // },
+        // {
+        //   loader: 'image-webpack-loader',
+        //   options: {
+        //     bypassOnDebug: true,
+        //     mozjpeg: {
+        //       progressive: true,
+        //       quality: 65,
+        //     },
+        //     optipng: {
+        //       optimizationLevel: 7,
+        //     },
+        //     pngquant: {
+        //       quality: '65-90',
+        //       speed: 1,
+        //     },
+        //     gifsicle: {
+        //       interlaced: false,
+        //     },
+        //   },
+        // },
+        {
+          loader: 'responsive-loader',
+          options: {
+            sizes: [300, 600, 1200, 2000],
+            placeholder: true,
+            placeholderSize: 50,
+            outputPath: 'images/',
+          },
         },
-        // include: path.join(__dirname, 'src')
-      },
-      {
-        loader: 'image-webpack-loader',
-        options: {
-          bypassOnDebug: true,
-          mozjpeg: {
-            progressive: true,
-            quality: 65,
-          },
-          optipng: {
-            optimizationLevel: 7,
-          },
-          pngquant: {
-            quality: '65-90',
-            speed: 1,
-          },
-          gifsicle: {
-            interlaced: false,
-          },
-        },
-      },
       ],
     },
     {
@@ -226,5 +238,6 @@ module.exports = {
       mergeStaticsConfig: true,
       staticFileGlobsIgnorePatterns: [/\.map$/], // use this to ignore sourcemap files
     }),
+    // new BundleAnalyzerPlugin(),
   ],
 }
