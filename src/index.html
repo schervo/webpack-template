@@ -1,69 +1,66 @@
 <!DOCTYPE html>
 <html>
 
-<head>
-  <meta charset="utf-8" />
-  <title>
-    <%= htmlWebpackPlugin.options.title %>
-  </title>
-  <meta http-equiv="Cache-control" content="public">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+  <head>
+    <meta charset="utf-8" />
+    <title>
+      Title
+    </title>
+    <meta http-equiv="Cache-control" content="public">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 
-</head>
+  </head>
 
-<body>
+  <body>
 
-  <div>
-    <img
-      src="<%= require('./images/webpack-background.png') %>"
-      srcSet="<%= require('./images/webpack-background.png').srcSet %>"
-      alt=""
-    >
-  </div>
-  <div class="header"></div>
-  <div class="header-js"></div>
+    <div>
+      <img src="<%= require('./images/webpack-background.png') %>"
+        srcSet="<%= require('./images/webpack-background.png').srcSet %>" alt="webpack-background">
+    </div>
+    <div class="header"></div>
+    <div class="header-js"></div>
 
 
 
-  <div class="container">
+    <div class="container">
 
-    <!-- Button trigger modal -->
-    <div class="row">
+      <!-- Button trigger modal -->
+      <div class="row">
 
-      <div class="col-sm">
+        <div class="col-sm">
 
-        <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#exampleModal">
-          Launch demo modal
-        </button>
-      </div>
+          <button type="button" class="btn btn-primary" data-toggle="modal" data-target="#example-modal">
+            Launch demo modal
+          </button>
+        </div>
 
 
-      <!-- Modal -->
-      <div class="col-sm-6">
+        <!-- Modal -->
+        <div class="col-sm-6">
 
-        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
-          aria-hidden="true">
-          <div class="modal-dialog" role="document">
-            <div class="modal-content">
-              <div class="modal-header">
-                <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                  <span aria-hidden="true">&times;</span>
-                </button>
-              </div>
-              <div class="modal-body">
-                ...
-              </div>
-              <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                <button type="button" class="btn btn-primary">Save changes</button>
+          <div class="modal fade" id="example-modal" tabindex="-1" role="dialog" aria-labelledby="example-modal-label"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title" id="example-modal-label">Modal title</h5>
+                  <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">x</span>
+                  </button>
+                </div>
+                <div class="modal-body">
+                  ...
+                </div>
+                <div class="modal-footer">
+                  <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                  <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
               </div>
             </div>
           </div>
         </div>
       </div>
     </div>
-  </div>
-</body>
+  </body>
 
 </html>
